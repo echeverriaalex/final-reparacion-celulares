@@ -13,6 +13,10 @@ CREATE TABLE IF NOT EXISTS orders
     CONSTRAINT PK_Order PRIMARY KEY (orderId)
 )Engine=InnoDB;
 
+select * from orders;
+update orders set orderId = 9, orderStatusId =2  where(orderId = 9);
+select * from orders;
+
 drop table technicals;
 CREATE TABLE IF NOT EXISTS technicals
 (
@@ -93,6 +97,31 @@ select
     inner join clients c on c.id_client = o.clientId
     where o.orderId = 3;
     
+select 
+	o.orderId as "order", 
+    o.orderStatusId as "status id order", 
+    o.description as "description order", 
+    os.orderStatusId as "status id", 
+    os.description as "description order status" 
+    from orders o inner join orderstatus os 
+	where o.orderStatusId = os.orderStatusId and o.orderId = 3;
+    
+select 
+	o.orderId as "order id", 
+    o.orderStatusId as "status order id", 
+    o.description as "description order",
+    
+    o.technicalId as "technical id",
+    t.userName as "technical name",
+    
+    o.clientId as "client id",
+    c.nombre as "nombre cliente",
+    c.telefono,
+    os.orderStatusId as "status id", 
+    os.description as "description order status" 
+    from orders o inner join orderstatus os on o.orderStatusId = os.orderStatusId
+    inner join technicals t on o.technicalId = t.id_technical
+    inner join clients c on c.id_client = o.clientId;
     
     
     
