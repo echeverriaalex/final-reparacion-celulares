@@ -21,13 +21,31 @@
         public function ShowListAllOrderView($message = null){
 
             if($_SESSION['technical']) {
+                
+                $orderStatusList = $this->orderStatusDAO->GetAll(); 
+                
+                //$ordersList = $this->orderDAO->GetAll();
+                //require_once(VIEWS_PATH."order-list.php");
+
+                $ordersList = $this->orderDAO->GetAllWithStatusClientTechnical();
+                require_once(VIEWS_PATH."order-list.php");
+            }
+            else{
+                header('location: '.FRONT_ROOT. '/Home/Index');
+            }  
+        }
+
+        public function ShowListOrderView($message = null){
+
+            if($_SESSION['technical']) {
                 //$ordersList = $this->orderDAO->GetAll();
                 //require_once(VIEWS_PATH."order-list.php");
 
                 //$ordersList = $this->orderDAO->GetAllWithStatus();
                 //require_once(VIEWS_PATH."order-list.php");
 
-                $ordersList = $this->orderDAO->GetAllWithStatusClientTechnical();
+                $orderStatusList = $this->orderStatusDAO->GetAll(); 
+                $ordersList = $this->orderDAO->GetAllWithStatusClientTechnicalLogged();
                 require_once(VIEWS_PATH."order-list.php");
             }
             else{
@@ -52,6 +70,11 @@
             $message = "Orden registrada con exito.";
             //require_once(VIEWS_PATH."order-list.php");
             $this->ShowListAllOrderView($message);            
+        }
+
+        public function EditStatus($orderId, $orderStatusId){
+            $this->orderDAO->Edit($orderId, $orderStatusId);
+            $this->ShowListAllOrderView();
         }
 
         public function Delete($orderId){
