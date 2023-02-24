@@ -2,11 +2,14 @@ drop database if exists reparacion_celulares;
 CREATE DATABASE IF NOT EXISTS reparacion_celulares;
 USE reparacion_celulares;
 
+drop table orders;
 CREATE TABLE IF NOT EXISTS orders
 (
     orderId INT NOT NULL auto_increment,
     orderStatusId INT NOT NULL,
     description NVARCHAR(200) NOT NULL,
+    technicalId INT NOT NULL,
+    clientId INT NOT NULL,
     CONSTRAINT PK_Order PRIMARY KEY (orderId)
 )Engine=InnoDB;
 
@@ -72,3 +75,30 @@ select
     os.description as "description order status" 
     from orders o inner join orderstatus os 
 	where o.orderStatusId = os.orderStatusId and o.orderId = 3;
+    
+select 
+	o.orderId as "order id", 
+    o.orderStatusId as "status order id", 
+    o.description as "description order",
+    
+    o.technicalId as "technical id",
+    t.userName as "technical name",
+    
+    o.clientId as "client id",
+    c.nombre as "nombre cliente",
+    os.orderStatusId as "status id", 
+    os.description as "description order status" 
+    from orders o inner join orderstatus os on o.orderStatusId = os.orderStatusId
+    inner join technicals t on o.technicalId = t.id_technical
+    inner join clients c on c.id_client = o.clientId
+    where o.orderId = 3;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
