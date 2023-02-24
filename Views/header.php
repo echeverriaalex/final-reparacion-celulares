@@ -10,8 +10,7 @@
      <link rel="stylesheet" href="<?php echo CSS_PATH ?>estilos.css">
 
      <title>Celulares UTN</title>
-</head>
-<body>
+
      <?php
           if(isset($_SESSION['technical'])){
      ?>
@@ -19,4 +18,7 @@
      <?php
           }
      ?>
+</head>
+<body>
+     
      
