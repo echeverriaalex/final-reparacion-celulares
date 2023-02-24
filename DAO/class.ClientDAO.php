@@ -43,6 +43,31 @@
             }
         }
 
+        public function GetClientById($id_client){
+            try{
+                $query = "select * from $this->tableName where (id_client = :id_client);";
+
+                $parameter['id_client'] = $id_client;
+
+                $this->connection = Connection::GetInstance();
+                $clientResult = $this->connection->Execute($query, $parameter);
+
+                if(isset($clientResult)){
+                    
+                    foreach($clientResult as $row){
+
+                        $client = new Client($row['id_client'], $row['nombre'], $row['telefono']);
+                        
+                    }
+                    return $client;
+                }
+                return null;                
+            }
+            catch(PDOException $ex){
+                throw $ex;
+            }
+        }
+
         public function Delete($id_client){
             try{
                 $query = "delete from $this->tableName where(id_client = :id_client);";
