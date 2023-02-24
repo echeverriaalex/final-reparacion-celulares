@@ -23,6 +23,8 @@
                     $order->setOrderId($row['orderId']);
                     $order->setOrderStatusId($row['orderStatusId']);
                     $order->setDescription($row['description']);
+                    $order->setTechnicalId($row['technicalId']);
+                    $order->setClientId($row['clientId']);
                     
                     array_push($ordersList, $order);
                 }
@@ -53,13 +55,55 @@
             }
         }
 
-        public function Add($orderStatusId,$description){    
+        public function GetAllWithStatusClientTechnical(){
             try{
-                $query = "insert into $this->tableName (orderStatusId,description) values (:orderStatusId, :description);";
+                $ordersList = array();
+                //$query = "select * from $this->tableName o inner join orderstatus os where o.orderStatusId = os.orderStatusId and o.orderId = 3;";
+                $query = 'select 
+                            o.orderId as "order id", 
+                            o.orderStatusId as "status order id", 
+                            o.description as "description order",
+                            
+                            o.technicalId as "technical id",
+                            t.userName as "technical name",
+                            
+                            o.clientId as "client id",
+                            c.nombre as "nombre cliente",
+                            os.orderStatusId as "status id", 
+                            os.description as "description order status" 
+                            from orders o inner join orderstatus os on o.orderStatusId = os.orderStatusId
+                            inner join technicals t on o.technicalId = t.id_technical
+                            inner join clients c on c.id_client = o.clientId ';
+                $this->connection = Connection::GetInstance();
+                $ordersResults = $this->connection->Execute($query);
+                
+                foreach($ordersResults as $row){
+                    $order = new Order();
+                    $order->setOrderId($row['order id']);
+                    $order->setOrderStatusId($row['description order status']);
+                    $order->setDescription($row['description order']);
+                    $order->setTechnicalId($row['technical name']);
+                    $order->setClientId($row['nombre cliente']);
+                    array_push($ordersList, $order);
+                }
+                return $ordersList;
+                
+            }
+            catch(PDOException $ex){
+                throw $ex;
+            }
+        }
+
+        public function Add($orderStatusId,$description, $technicalId, $clientId ){    
+            try{
+                $query = "insert into $this->tableName (orderStatusId,description, technicalId, clientId) 
+                                values (:orderStatusId, :description, :technicalId, :clientId);";
                 $this->connection = Connection::GetInstance();
 
                 $parameters['orderStatusId'] = $orderStatusId;
                 $parameters['description'] = $description;
+                $parameters['technicalId'] = $technicalId;
+                $parameters['clientId'] = $clientId;
 
                 $this->connection->ExecuteNonQuery($query, $parameters);
                 $ok = true;
