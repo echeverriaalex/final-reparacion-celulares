@@ -48,7 +48,7 @@
                               </div>
                          </div>
                     </div>
-                    <input type="hidden" value="<?php echo $_SESSION['technical']->getIdTechnical(); ?>" name="id_technical">
+                    <input name="id_technical" type="text" value="<?php echo $_SESSION['technical']->getIdTechnical(); ?>" hidden>
                     <button type="submit" class="btn btn-dark ml-auto d-block">Agregar</button>
                </form>
           </div>
