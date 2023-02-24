@@ -24,7 +24,10 @@
                 //$ordersList = $this->orderDAO->GetAll();
                 //require_once(VIEWS_PATH."order-list.php");
 
-                $ordersList =$this->orderDAO->GetAllWithStatus();
+                //$ordersList = $this->orderDAO->GetAllWithStatus();
+                //require_once(VIEWS_PATH."order-list.php");
+
+                $ordersList = $this->orderDAO->GetAllWithStatusClientTechnical();
                 require_once(VIEWS_PATH."order-list.php");
             }
             else{
@@ -44,8 +47,8 @@
             }            
         }
 
-        public function Add($orderStatusId, $id_client, $description){
-            $this->orderDAO->Add($orderStatusId,$description);
+        public function Add($orderStatusId, $id_client, $description, $id_technical){
+            $this->orderDAO->Add($orderStatusId,$description, $id_technical, $id_client);
             $message = "Orden registrada con exito.";
             //require_once(VIEWS_PATH."order-list.php");
             $this->ShowListAllOrderView($message);            
