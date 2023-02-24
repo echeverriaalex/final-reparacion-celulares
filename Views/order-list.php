@@ -20,6 +20,8 @@
                          <th>Código</th>
                          <th>Estado</th>
                          <th>Descripcion</th>
+                         <th>Tecnico</th>
+                         <th>Cliente</th>
                          <th>Opcion</th>
                     </thead>
                     <tbody>
@@ -30,6 +32,8 @@
                                    <td> <?php echo $order->getOrderId();?></td>
                                    <td> <?php echo $order->getOrderStatusId();?></td>
                                    <td> <?php echo $order->getDescription();?></td>
+                                   <td> <?php echo $order->getTechnicalId();?></td>
+                                   <td> <?php echo $order->getClientId();?></td>
                                    <td> 
                                         <form class="bg-light-alpha" action="<?php echo FRONT_ROOT ?>Order/Delete">
                                              <div class="row">
