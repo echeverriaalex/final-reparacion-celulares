@@ -1,6 +1,7 @@
 <?php 
     namespace Controllers;
 
+    use Controllers\RepairController;
     use DAO\TechnicalDAO;
     use Models\Technical;
 
@@ -18,8 +19,8 @@
 
             if(isset($technical) && $technical->getEmail() == $email & $technical->getPassword() == $password){
                 $_SESSION['technical'] = $technical;
-                $orderController = new OrderController();
-                $orderController->ShowListAllOrderView(); 
+                $repairController = new RepairController();
+                $repairController->ShowListAllOrderView(); 
             }
             else{
                 $message = "No se pudo iniciar sesión";

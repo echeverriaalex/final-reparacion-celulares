@@ -2,22 +2,22 @@ drop database if exists reparacion_celulares;
 CREATE DATABASE IF NOT EXISTS reparacion_celulares;
 USE reparacion_celulares;
 
-drop table orders;
-CREATE TABLE IF NOT EXISTS orders
+drop table if exists repairs;
+CREATE TABLE IF NOT EXISTS repairs
 (
-    orderId INT NOT NULL auto_increment,
-    orderStatusId INT NOT NULL,
+    repairId INT NOT NULL auto_increment,
+    repairStatusId INT NOT NULL,
     description NVARCHAR(200) NOT NULL,
     technicalId INT NOT NULL,
     clientId INT NOT NULL,
-    CONSTRAINT PK_Order PRIMARY KEY (orderId)
+    CONSTRAINT PK_repair PRIMARY KEY (repairId)
 )Engine=InnoDB;
 
-select * from orders;
-update orders set orderId = 9, orderStatusId =2  where(orderId = 9);
-select * from orders;
+select * from repairs;
+update repairs set repairId = 9, repairStatusId =2  where(repairId = 9);
+select * from repairs;
 
-drop table technicals;
+drop table if exists technicals;
 CREATE TABLE IF NOT EXISTS technicals
 (
 	id_technical int  auto_increment,
@@ -42,86 +42,86 @@ CREATE TABLE IF NOT EXISTS clients
 
 insert into clients(nombre, telefono) 
 	values 	("Pepe Argento", "22345342"),
-			("Monica Rapidos", "25654342"),
+			("Monica Rapidrs", "25654342"),
             ("Dominic Toretto", "67708865342");
 
-CREATE TABLE IF NOT EXISTS orderstatus
+CREATE TABLE IF NOT EXISTS repairstatus
 (
-    orderStatusId INT NOT NULL AUTO_INCREMENT,
+    repairStatusId INT NOT NULL AUTO_INCREMENT,
     description NVARCHAR(100) NOT NULL,
-    CONSTRAINT PK_OrderStatus PRIMARY KEY (orderStatusId)
+    CONSTRAINT PK_repairStatus PRIMARY KEY (repairStatusId)
 )Engine=InnoDB;
 
-INSERT INTO orderstatus (description)
+INSERT INTO repairstatus (description)
     VALUES ('Pendiente'),('En reparacion'),('Finalizado');
 
-delete from orders;
-select  * from orders;
+delete from repairs;
+select  * from repairs;
 
-select * from orderstatus;
+select * from repairstatus;
     
 select * from clients;
 
 select * from technicals; 
 
-select o.orderId, o.description, os.description as "estado"
-	from orders o inner join orderstatus os where o.orderStatusId = os.orderStatusId and o.orderId = 3;
+select r.repairId, r.description, rs.description as "estado"
+	from repairs r inner join repairstatus rs where r.repairStatusId = rs.repairStatusId and r.repairId = 3;
 
-select o.orderId, o.description, os.description as "estado"
-	from orders o inner join orderstatus os where o.orderStatusId = os.orderStatusId;
+select r.repairId, r.description, rs.description as "estado"
+	from repairs r inner join repairstatus rs where r.repairStatusId = rs.repairStatusId;
    
 
 select 
-	o.orderId as "order", 
-    o.orderStatusId as "status id order", 
-    o.description as "description order", 
-    os.orderStatusId as "status id", 
-    os.description as "description order status" 
-    from orders o inner join orderstatus os 
-	where o.orderStatusId = os.orderStatusId and o.orderId = 3;
+	r.repairId as "repair", 
+    r.repairStatusId as "status id repair", 
+    r.description as "description repair", 
+    rs.repairStatusId as "status id", 
+    rs.description as "description repair status" 
+    from repairs r inner join repairstatus rs 
+	where r.repairStatusId = rs.repairStatusId and r.repairId = 3;
     
 select 
-	o.orderId as "order id", 
-    o.orderStatusId as "status order id", 
-    o.description as "description order",
+	r.repairId as "repair id", 
+    r.repairStatusId as "status repair id", 
+    r.description as "description repair",
     
-    o.technicalId as "technical id",
+    r.technicalId as "technical id",
     t.userName as "technical name",
     
-    o.clientId as "client id",
+    r.clientId as "client id",
     c.nombre as "nombre cliente",
-    os.orderStatusId as "status id", 
-    os.description as "description order status" 
-    from orders o inner join orderstatus os on o.orderStatusId = os.orderStatusId
-    inner join technicals t on o.technicalId = t.id_technical
-    inner join clients c on c.id_client = o.clientId
-    where o.orderId = 3;
+    rs.repairStatusId as "status id", 
+    rs.description as "description repair status" 
+    from repairs r inner join repairstatus rs on r.repairStatusId = rs.repairStatusId
+    inner join technicals t on r.technicalId = t.id_technical
+    inner join clients c on c.id_client = r.clientId
+    where r.repairId = 3;
     
 select 
-	o.orderId as "order", 
-    o.orderStatusId as "status id order", 
-    o.description as "description order", 
-    os.orderStatusId as "status id", 
-    os.description as "description order status" 
-    from orders o inner join orderstatus os 
-	where o.orderStatusId = os.orderStatusId and o.orderId = 3;
+	r.repairId as "repair", 
+    r.repairStatusId as "status id repair", 
+    r.description as "description repair", 
+    rs.repairStatusId as "status id", 
+    rs.description as "description repair status" 
+    from repairs r inner join repairstatus rs 
+	where r.repairStatusId = rs.repairStatusId and r.repairId = 3;
     
 select 
-	o.orderId as "order id", 
-    o.orderStatusId as "status order id", 
-    o.description as "description order",
+	r.repairId as "repair id", 
+    r.repairStatusId as "status repair id", 
+    r.description as "description repair",
     
-    o.technicalId as "technical id",
+    r.technicalId as "technical id",
     t.userName as "technical name",
     
-    o.clientId as "client id",
+    r.clientId as "client id",
     c.nombre as "nombre cliente",
     c.telefono,
-    os.orderStatusId as "status id", 
-    os.description as "description order status" 
-    from orders o inner join orderstatus os on o.orderStatusId = os.orderStatusId
-    inner join technicals t on o.technicalId = t.id_technical
-    inner join clients c on c.id_client = o.clientId;
+    rs.repairStatusId as "status id", 
+    rs.description as "description repair status" 
+    from repairs r inner join repairstatus rs on r.repairStatusId = rs.repairStatusId
+    inner join technicals t on r.technicalId = t.id_technical
+    inner join clients c on c.id_client = r.clientId;
     
     
     

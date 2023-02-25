@@ -5,18 +5,18 @@
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Registrar Orden</h2>
-               <form class="bg-light-alpha p-5" action="<?php echo FRONT_ROOT?>Order/Add">
+               <form class="bg-light-alpha p-5" action="<?php echo FRONT_ROOT?>Repair/Add">
                     <div class="row">
                          <div class="col-lg-3">
                               <div class="form-group">
                                    <label for="">Estado de Orden</label>
-                                   <select name="orderStatusId" class="form-control">
+                                   <select name="repairStatusId" class="form-control">
                                         <optgroup>
                                              <option disabled selected>Seleccionar...</option>                                        
                                              <?php
-                                                  foreach($orderStatusList as $orderStatus){
+                                                  foreach($repairsStatusList as $repairsStatus){
                                              ?>
-                                                       <option value="<?php echo $orderStatus->getOrderStatusId();?>"> <?php echo $orderStatus->getDescription();?> </option>
+                                                       <option value="<?php echo $repairsStatus->getRepairStatusId();?>"> <?php echo $repairsStatus->getDescription();?> </option>
                                              <?php        
                                                   }
                                              ?>
@@ -27,7 +27,7 @@
                          <div class="col-lg-3">
                               <div class="form-group">
                                    <label for="">Cliente </label>
-                                   <select name="id_client" class="form-control">
+                                   <select name="clientId" class="form-control">
                                         <optgroup>
                                              <option disabled selected>Seleccionar...</option>                                        
                                              <?php
@@ -48,7 +48,7 @@
                               </div>
                          </div>
                     </div>
-                    <input name="id_technical" type="text" value="<?php echo $_SESSION['technical']->getIdTechnical(); ?>" hidden>
+                    <input name="technicalId" type="text" value="<?php echo $_SESSION['technical']->getIdTechnical(); ?>" hidden>
                     <button type="submit" class="btn btn-dark ml-auto d-block">Agregar</button>
                </form>
           </div>
