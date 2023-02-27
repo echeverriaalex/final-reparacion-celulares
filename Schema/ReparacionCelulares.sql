@@ -13,6 +13,14 @@ CREATE TABLE IF NOT EXISTS repairs
     CONSTRAINT PK_repair PRIMARY KEY (repairId)
 )Engine=InnoDB;
 
+insert into repairs (repairStatusId, description, technicalId, clientId)
+	values 	(1, "Iphone 12 pro", 1, 1), 
+			(2, "Iphone 11", 2, 3),
+            (3, "Iphone X pro", 3, 4),
+            (1, "Iphone X", 1, 2),
+            (2, "Iphone 8", 3, 5),
+            (3, "Iphone 7", 2, 2);
+
 select * from repairs;
 update repairs set repairId = 9, repairStatusId =2  where(repairId = 9);
 select * from repairs;
@@ -32,6 +40,7 @@ insert into technicals (userName, email, password)
 			("Pepe Fulano", "pepe@utn.com", "123456"),
             ("Fulano Mengano", "fula@no.com", "123456");
 
+drop table if exists clients;
 CREATE TABLE IF NOT EXISTS clients
 (
 	id_client INT NOT NULL auto_increment,
@@ -41,8 +50,15 @@ CREATE TABLE IF NOT EXISTS clients
 )Engine=InnoDB;
 
 insert into clients(nombre, telefono) 
-	values 	("Pepe Argento", "22345342"),
-			("Monica Rapidrs", "25654342"),
+	values 	("Leticia Ortiz", "22345342"),
+			("Mia Toretto", "555333255"),
+            ("Johnny Tran", "412347"),
+            ("Hector El pelado", "4353453"),
+			("Monica Rapida", "25654342"),
+            ("Roman Pearce", "345436"),
+            ("Suki Suzuki", "45332423"),
+            ("Brian OConner", "43523242"),
+            ("Tej Parker", "93284920"),
             ("Dominic Toretto", "67708865342");
 
 CREATE TABLE IF NOT EXISTS repairstatus
@@ -122,9 +138,17 @@ select
     from repairs r inner join repairstatus rs on r.repairStatusId = rs.repairStatusId
     inner join technicals t on r.technicalId = t.id_technical
     inner join clients c on c.id_client = r.clientId;
-    
-    
-    
+
+select * from clients;
+ 
+ /* 
+ delete from clients where nombre like "Roberto lencinas"; 
+ update clients set nombre = "Monica Rapida" where nombre like "Monica Rapidrs";
+ */
+
+select * from clients;
+
+
     
     
     
