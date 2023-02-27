@@ -10,6 +10,7 @@
                          <th>Id</th>
                          <th>Nombre</th>
                          <th>Telefono</th>
+                         <th>Opcion</th>
                     </thead>
                     <tbody>
                          <?php 
@@ -20,12 +21,14 @@
                                    <td> <?php echo $client->getNombre();?></td>
                                    <td> <?php echo $client->getTelefono();?></td>
                                    <td>
-                                        <form class="bg-light-alpha" action="<?php echo FRONT_ROOT ?>Client/Delete">                                             
-                                             <div class="col-lg-2">
-                                                  <div class="form-group">
-                                                       <input name="id_client" value="<?php echo $client->getIdCliente();?>" hidden>
-                                                       <button type="submit" class="btn btn-dark ml-auto d-block">Eliminar</button>
-                                                  </div>
+                                        <form action="<?php echo FRONT_ROOT ?>Client/Delete">                                             
+                                             <div class="row">
+                                                  <div class="col-lg-2">
+                                                       <div class="form-group">
+                                                            <input name="id_client" value="<?php echo $client->getIdCliente();?>" hidden>
+                                                            <button type="submit" class="btn btn-dark ml-auto d-block">Eliminar</button>
+                                                       </div>
+                                                  </div>                         
                                              </div>
                                         </form>
                                    </td>
